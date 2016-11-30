@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:paddingBottom="30dp"
+    android:gravity="center"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@id/error_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"/>
+
+    <TextView
+        android:id="@id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        tools:text="无网络连接，请检查您的网络..."
+        tools:textColor="#666666"
+        tools:textSize="16sp"/>
+
+    <TextView
+        android:id="@id/retry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/_loading_layout_button"
+        android:gravity="center"
+        android:minWidth="120dp"
+        android:padding="10dp"
+        tools:text="加载失败，点击重试~~"
+        tools:textColor="#999999"
+        tools:textSize="16sp"/>
+
+</LinearLayout>

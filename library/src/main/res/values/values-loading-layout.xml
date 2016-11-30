@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2016 czy1121
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~    http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <item name="empty_image" type="id"/>
+    <item name="empty_text" type="id"/>
+
+    <item name="error_image" type="id"/>
+    <item name="error_text" type="id"/>
+    <item name="retry_button" type="id"/>
+
+    <attr name="styleLoadingLayout" format="reference"/>
+
+    <style name="LoadingLayout">
+    </style>
+
+    <style name="LoadingLayout.Style">
+        <item name="llEmptyResId">@layout/_loading_layout_empty</item>
+        <item name="llLoadingResId">@layout/_loading_layout_loading</item>
+        <item name="llErrorResId">@layout/_loading_layout_error</item>
+
+        <item name="llTextColor">#999999</item>
+        <item name="llTextSize">16sp</item>
+
+        <item name="llButtonTextColor">#999999</item>
+        <item name="llButtonTextSize">16sp</item>
+        <item name="llButtonBackground">@drawable/_loading_layout_button</item>
+
+        <item name="llEmptyImage">@null</item>
+        <item name="llEmptyText">暂无数据</item>
+        <item name="llErrorImage">@null</item>
+        <item name="llErrorText">无网络连接，请检查您的网络...</item>
+        <item name="llRetryText">加载失败，点击重试~~</item>
+    </style>
+
+
+    <declare-styleable name="LoadingLayout">
+        <!-- 空布局资源id -->
+        <attr name="llEmptyResId" format="reference"/>
+        <!-- 加载中布局资源id -->
+        <attr name="llLoadingResId" format="reference"/>
+        <!-- 错误布局资源id -->
+        <attr name="llErrorResId" format="reference"/>
+
+        <!-- 空布局图片 -->
+        <attr name="llEmptyImage" format="reference"/>
+        <!-- 空布局文本 -->
+        <attr name="llEmptyText" format="string"/>
+
+        <!-- 错误布局图片 -->
+        <attr name="llErrorImage" format="reference"/>
+        <!-- 错误布局文本 -->
+        <attr name="llErrorText" format="string"/>
+        <!-- 错误布局重试按钮文本 -->
+        <attr name="llRetryText" format="string"/>
+
+        <!-- 文本颜色 -->
+        <attr name="llTextColor" format="color"/>
+        <!-- 文本尺寸 -->
+        <attr name="llTextSize" format="dimension"/>
+
+        <!-- 按钮文本颜色 -->
+        <attr name="llButtonTextColor" format="color"/>
+        <!-- 按钮文本尺寸 -->
+        <attr name="llButtonTextSize" format="dimension"/>
+        <!-- 按钮背景 -->
+        <attr name="llButtonBackground" format="reference"/>
+    </declare-styleable>
+</resources>
