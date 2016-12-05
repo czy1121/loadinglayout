@@ -24,7 +24,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +39,9 @@ import java.util.Map;
 
 
 public class LoadingLayout extends FrameLayout {
+    public interface OnInflateListener {
+        void onInflate(View inflated);
+    }
 
     public static LoadingLayout wrap(Activity activity) {
         return wrap(((ViewGroup)activity.findViewById(android.R.id.content)).getChildAt(0));
@@ -80,6 +82,9 @@ public class LoadingLayout extends FrameLayout {
         }
     };
     View.OnClickListener mRetryListener;
+
+    OnInflateListener mOnEmptyInflateListener;
+    OnInflateListener mOnErrorInflateListener;
 
     int mTextColor, mTextSize;
     int mButtonTextColor, mButtonTextSize;
@@ -131,7 +136,6 @@ public class LoadingLayout extends FrameLayout {
     LayoutInflater mInflater;
     @Override
     protected void onFinishInflate() {
-        Log.e("ezy", "onFinishInflate");
         super.onFinishInflate();
         if (getChildCount() == 0) {
             return;
@@ -163,10 +167,17 @@ public class LoadingLayout extends FrameLayout {
         }
         return this;
     }
-    public LoadingLayout setError(@LayoutRes int id) {
-        if (mErrorResId != id) {
-            remove(mErrorResId);
-            mErrorResId = id;
+    public LoadingLayout setOnEmptyInflateListener(OnInflateListener listener) {
+        mOnEmptyInflateListener = listener;
+        if (mOnEmptyInflateListener != null && mLayouts.containsKey(mEmptyResId)) {
+            listener.onInflate(mLayouts.get(mEmptyResId));
+        }
+        return this;
+    }
+    public LoadingLayout setOnErrorInflateListener(OnInflateListener listener) {
+        mOnErrorInflateListener = listener;
+        if (mOnErrorInflateListener != null && mLayouts.containsKey(mErrorResId)) {
+            listener.onInflate(mLayouts.get(mErrorResId));
         }
         return this;
     }
@@ -202,6 +213,28 @@ public class LoadingLayout extends FrameLayout {
         mRetryListener = listener;
         return this;
     }
+
+
+//    public LoadingLayout setTextColor(@ColorInt int color) {
+//        mTextColor = color;
+//        return this;
+//    }
+//    public LoadingLayout setTextSize(@ColorInt int dp) {
+//        mTextColor = dp2px(dp);
+//        return this;
+//    }
+//    public LoadingLayout setButtonTextColor(@ColorInt int color) {
+//        mButtonTextColor = color;
+//        return this;
+//    }
+//    public LoadingLayout setButtonTextSize(@ColorInt int dp) {
+//        mButtonTextColor = dp2px(dp);
+//        return this;
+//    }
+//    public LoadingLayout setButtonBackground(Drawable drawable) {
+//        mButtonBackground = drawable;
+//        return this;
+//    }
 
     public void showLoading() {
         show(mLoadingResId);
@@ -253,6 +286,9 @@ public class LoadingLayout extends FrameLayout {
                 view.setTextColor(mTextColor);
                 view.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
             }
+            if (mOnEmptyInflateListener != null) {
+                mOnEmptyInflateListener.onInflate(layout);
+            }
         } else if (layoutId == mErrorResId) {
             ImageView img = (ImageView) layout.findViewById(R.id.error_image);
             if (img != null) {
@@ -271,6 +307,9 @@ public class LoadingLayout extends FrameLayout {
                 btn.setTextSize(TypedValue.COMPLEX_UNIT_PX, mButtonTextSize);
                 btn.setBackground(mButtonBackground);
                 btn.setOnClickListener(mRetryButtonClickListener);
+            }
+            if (mOnErrorInflateListener != null) {
+                mOnErrorInflateListener.onInflate(layout);
             }
         }
         return layout;

@@ -12,7 +12,7 @@ repositories {
     maven { url "https://jitpack.io" }
 } 
 dependencies {
-    compile 'com.github.czy1121:loadinglayout:1.0.0'
+    compile 'com.github.czy1121:loadinglayout:1.0.1'
 }
 ```
     
@@ -33,7 +33,7 @@ dependencies {
 </style>
 ```
 
-**在布局中使用**
+**用法一：在布局中使用**
 
 ``` xml  
 <ezy.ui.layout.LoadingLayout
@@ -51,7 +51,7 @@ dependencies {
  
 ``` 
 
-**包裹并替换内容元素**
+**用法二：包裹并替换内容元素**
 
 ``` java   
 @Override
