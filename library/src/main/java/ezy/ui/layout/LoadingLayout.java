@@ -32,10 +32,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.czy1121.loadinglayout.R;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import ezy.library.loadinglayout.R;
 
 
 public class LoadingLayout extends FrameLayout {
