@@ -39,6 +39,13 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Error"/>
+        <TextView
+            android:id="@+id/action_net_error"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="NetError"/>
     </LinearLayout>
 
     <ezy.ui.layout.LoadingLayout

@@ -6,8 +6,8 @@ version='1.0.1'
 archivesBaseName='loadinglayout'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
 

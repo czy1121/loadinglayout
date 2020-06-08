@@ -23,6 +23,9 @@
     <item name="error_text" type="id"/>
     <item name="retry_button" type="id"/>
 
+    <item name="net_error_image" type="id"/>
+    <item name="net_error_text" type="id"/>
+
     <attr name="styleLoadingLayout" format="reference"/>
 
     <style name="LoadingLayout">
@@ -55,6 +58,8 @@
         <attr name="llLoadingResId" format="reference"/>
         <!-- 错误布局资源id -->
         <attr name="llErrorResId" format="reference"/>
+        <!-- 网络错误布局资源id -->
+        <attr name="llNetErrorResId" format="reference"/>
 
         <!-- 空布局图片 -->
         <attr name="llEmptyImage" format="reference"/>

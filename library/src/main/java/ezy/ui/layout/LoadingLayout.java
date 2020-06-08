@@ -23,7 +23,9 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
+import android.text.Spanned;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,8 +73,8 @@ public class LoadingLayout extends FrameLayout {
     int mEmptyImage;
     CharSequence mEmptyText;
 
-    int mErrorImage;
-    CharSequence mErrorText, mRetryText;
+    int mErrorImage,mNetErrorImage;
+    CharSequence mErrorText, mRetryText,mNetErrorText;
     View.OnClickListener mRetryButtonClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -85,11 +87,12 @@ public class LoadingLayout extends FrameLayout {
 
     OnInflateListener mOnEmptyInflateListener;
     OnInflateListener mOnErrorInflateListener;
+    OnInflateListener mOnNetErrorInflateListener;
 
     int mTextColor, mTextSize;
     int mButtonTextColor, mButtonTextSize;
     Drawable mButtonBackground;
-    int mEmptyResId = NO_ID, mLoadingResId = NO_ID, mErrorResId = NO_ID;
+    int mEmptyResId = NO_ID, mLoadingResId = NO_ID, mErrorResId = NO_ID, mNetErrorResId = NO_ID;
     int mContentId = NO_ID;
 
     Map<Integer, View> mLayouts = new HashMap<>();
@@ -125,6 +128,8 @@ public class LoadingLayout extends FrameLayout {
         mEmptyResId = a.getResourceId(R.styleable.LoadingLayout_llEmptyResId, R.layout._loading_layout_empty);
         mLoadingResId = a.getResourceId(R.styleable.LoadingLayout_llLoadingResId, R.layout._loading_layout_loading);
         mErrorResId = a.getResourceId(R.styleable.LoadingLayout_llErrorResId, R.layout._loading_layout_error);
+        mNetErrorResId = a.getResourceId(R.styleable.LoadingLayout_llNetErrorResId, R.layout._loading_layout_net_error);
+        Log.e("","net error id is " + mNetErrorResId);
         a.recycle();
     }
 
@@ -182,6 +187,14 @@ public class LoadingLayout extends FrameLayout {
         return this;
     }
 
+    public LoadingLayout setOnNetErrorInflateListener(OnInflateListener listener) {
+        mOnNetErrorInflateListener = listener;
+        if (mOnNetErrorInflateListener != null && mLayouts.containsKey(mNetErrorResId)) {
+            listener.onInflate(mLayouts.get(mNetErrorResId));
+        }
+        return this;
+    }
+
     public LoadingLayout setEmptyImage(@DrawableRes int resId) {
         mEmptyImage = resId;
         image(mEmptyResId, R.id.empty_image, mEmptyImage);
@@ -200,6 +213,17 @@ public class LoadingLayout extends FrameLayout {
     public LoadingLayout setErrorText(String value) {
         mErrorText = value;
         text(mErrorResId, R.id.error_text, mErrorText);
+        return this;
+    }
+
+    public LoadingLayout setNetErrorImage(@DrawableRes int resId) {
+        mNetErrorImage = resId;
+        image(mNetErrorResId, R.id.net_error_image,mNetErrorImage);
+        return this;
+    }
+    public LoadingLayout setNetErrorText(CharSequence value) {
+        mNetErrorText = value;
+        text(mErrorResId, R.id.net_error_text, mNetErrorText);
         return this;
     }
 
@@ -250,6 +274,10 @@ public class LoadingLayout extends FrameLayout {
 
     public void showContent() {
         show(mContentId);
+    }
+
+    public void showNetError() {
+        show(mNetErrorResId);
     }
 
     private void show(int layoutId) {
@@ -310,6 +338,18 @@ public class LoadingLayout extends FrameLayout {
             }
             if (mOnErrorInflateListener != null) {
                 mOnErrorInflateListener.onInflate(layout);
+            }
+        } else if (layoutId == mNetErrorResId) {
+            ImageView netErrorImage = layout.findViewById(R.id.net_error_image);
+            if (netErrorImage != null) {
+                netErrorImage.setImageResource(mNetErrorImage);
+            }
+            TextView tv = layout.findViewById(R.id.net_error_text);
+            if (tv != null) {
+                tv.setText(mNetErrorText);
+            }
+            if (mOnNetErrorInflateListener != null) {
+                mOnNetErrorInflateListener.onInflate(layout);
             }
         }
         return layout;

@@ -47,7 +47,11 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.action_empty).setOnClickListener(this);
         findViewById(R.id.action_loading).setOnClickListener(this);
         findViewById(R.id.action_error).setOnClickListener(this);
+        findViewById(R.id.action_net_error).setOnClickListener(this);
 
+
+        vLoading.setNetErrorImage(R.mipmap.error);
+        vLoading.setNetErrorText("网络连接异常");
      }
 
     @Override
@@ -64,6 +68,9 @@ public class LoadingActivity extends AppCompatActivity implements View.OnClickLi
             break;
         case R.id.action_error:
             vLoading.showError();
+            break;
+        case R.id.action_net_error:
+            vLoading.showNetError();
             break;
         }
     }
